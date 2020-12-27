@@ -155,3 +155,11 @@ history = model.fit(data["X_train"], data["y_train"],
                     validation_data=(data["X_test"], data["y_test"]),
                     callbacks=[checkpointer, tensorboard],
                     verbose=1)
+
+def plotGraph(test):
+    plt.plot(test[f'true_adjclose_{LookupStep}'], c='b')
+    plt.plot(test[f'adjclose_{LookupStep}'], c='r')
+    plt.xlabel("Days")
+    plt.ylabel("Price")
+    plt.legend(["Actual Price", "Predicted Price"])
+    plt.show()
