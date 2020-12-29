@@ -1,7 +1,7 @@
 import numpy as np
-from params import *
+from Scripts.params import *
 import matplotlib.pyplot as plt
-from stockPrediction import getData, modelCreation
+from Scripts.stockPrediction import getData, modelCreation
 
 def predict(model, data):
     finalOccurance = data["finalOccurance"][-NueralSteps:]
@@ -48,18 +48,8 @@ def plotGraph(test):
 data = getData(ticker, NueralSteps, scale=Scale, dateSplit=SplitByDate,
                shuffle=Shuffle, stepLookup=LookupStep, testSize=TestSize,
                mainColumns=MainColumns)
-data["df"].to_csv(tickerFilename)
 model = modelCreation(NueralSteps, len(MainColumns), loss=LOSS, units=UNITS, cell=CELL, nueralLayers=NueralLayers,
                       dropout=DROPOUT, optimizer=OPTIMIZER, bidirectional=BIDIRECTIONAL)
-checkpointer = ModelCheckpoint(os.path.join("results", modelName + ".h5"), save_weights_only=True, save_best_only=True, verbose=1)
-tensorboard = TensorBoard(log_dir=os.path.join("logs", modelName))
-history = model.fit(data["X_train"], data["y_train"],
-                    batch_size=BatchSize,
-                    epochs=EPOCHS,
-                    validation_data=(data["X_test"], data["y_test"]),
-                    callbacks=[checkpointer, tensorboard],
-                    verbose=1)
-
 pathModel = os.path.join("results", modelName) + ".h5"
 model.load_weights(pathModel)
 
