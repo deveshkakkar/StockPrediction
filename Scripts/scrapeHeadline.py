@@ -1,7 +1,8 @@
 from selenium import webdriver
 import pandas as pd
 import time
-ticker = "tsla"
+from Scripts.params import *
+
 website = 'http://www.nasdaq.com/symbol/' + ticker + '/news-headlines'
 
 def getText(someList):
