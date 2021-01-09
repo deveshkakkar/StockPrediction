@@ -1,0 +1,8 @@
+###### Requirements without Version Specifiers ######`
+tensorflow
+selenium
+pandas
+numpy
+matplotlib
+yahoo_fin
+sklearn
